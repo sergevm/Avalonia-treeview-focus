@@ -3,7 +3,7 @@
         xmlns:vm="using:FocusingTreeviewOnRefresh.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:models="clr-namespace:FocusingTreeviewOnRefresh.Models"
+        xmlns:reactiveUi="http://reactiveui.net"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="FocusingTreeviewOnRefresh.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -13,17 +13,17 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <TreeView ItemsSource="{Binding Root.Children}">
-        <TreeView.KeyBindings>
-            <KeyBinding Gesture="F5" Command="{Binding RefreshCommand}" />
-        </TreeView.KeyBindings>
-        <TreeView.DataTemplates>
-            <TreeDataTemplate DataType="models:TreeViewNode">
-                <TreeViewItem DataContext="{Binding}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding Name}"></TextBlock>
-                </TreeViewItem>
-            </TreeDataTemplate>
-        </TreeView.DataTemplates>
-    </TreeView>
-
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
+            <reactiveUi:RoutedViewHost Router="{Binding Router}">
+                <reactiveUi:RoutedViewHost.DefaultContent>
+                    <Border>
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button DockPanel.Dock="Top" Content="Load ..." Command="{Binding LoadTreeViewCommand}" />
+                        </Grid>
+                    </Border>
+                </reactiveUi:RoutedViewHost.DefaultContent>
+            </reactiveUi:RoutedViewHost>
+        </DockPanel>
+    </Grid>
 </Window>
