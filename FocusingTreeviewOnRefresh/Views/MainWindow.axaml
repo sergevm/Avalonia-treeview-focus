@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:FocusingTreeviewOnRefresh.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:FocusingTreeviewOnRefresh.Models"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="FocusingTreeviewOnRefresh.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="FocusingTreeviewOnRefresh">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <TreeView ItemsSource="{Binding Root.Children}">
+        <TreeView.KeyBindings>
+            <KeyBinding Gesture="F5" Command="{Binding RefreshCommand}" />
+        </TreeView.KeyBindings>
+        <TreeView.DataTemplates>
+            <TreeDataTemplate DataType="models:TreeViewNode">
+                <TreeViewItem DataContext="{Binding}" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </TreeViewItem>
+            </TreeDataTemplate>
+        </TreeView.DataTemplates>
+    </TreeView>
+
+</Window>
