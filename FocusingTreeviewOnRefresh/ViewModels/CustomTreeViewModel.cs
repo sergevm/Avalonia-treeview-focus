@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using FocusingTreeviewOnRefresh.Models;
 using ReactiveUI;
@@ -10,7 +11,7 @@ public class CustomTreeViewModel : ViewModelBase, IRoutableViewModel
 {
     [Reactive] public TreeViewNode Root { get; set; } = new();
     [Reactive] public ICommand RefreshCommand { get; set; }
-
+    [Reactive] public bool IsLoading { get; set; }
     public CustomTreeViewModel(IScreen hostScreen)
     {
         HostScreen = hostScreen;
@@ -23,7 +24,12 @@ public class CustomTreeViewModel : ViewModelBase, IRoutableViewModel
         level1.Children.Add(new TreeViewNode { Name = "Item 1-2" });
         level1.Children.Add(new TreeViewNode { Name = "Item 1-3" });
 
-        RefreshCommand = ReactiveCommand.Create(() => { Console.WriteLine("Refreshing..."); });
+        RefreshCommand = ReactiveCommand.Create(() =>
+        {
+            IsLoading = true;
+            Console.WriteLine("Refreshing...");
+            IsLoading = false;
+        });
     }
 
     public string UrlPathSegment => "Treeview";

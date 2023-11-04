@@ -10,4 +10,6 @@
     <!-- ReSharper disable once Xaml.ConstructorWarning -->
     <Design.DataContext><viewModels:CustomTreeWrapperViewModel /></Design.DataContext>
     <views:CustomTreeView DataContext="{Binding TreeViewModel}" />
+    <!-- WHEN ISENABLED IS BOUND TO THE ISLOADING PROPERTY, MULTIPLE REFRESHES VIA F5 FAIL, THE TREEVIEW HAS LOST FOCUS -->
+    <!-- <views:CustomTreeView DataContext="{Binding TreeViewModel}" IsEnabled="{Binding !IsLoading}" /> -->
 </UserControl>
